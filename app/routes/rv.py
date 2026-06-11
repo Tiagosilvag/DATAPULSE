@@ -443,4 +443,4 @@ def detalhe(id_check):
         cur.close()
         conn.close()
 
-    return render_template("rv/detalhe.html", dados=dados)
+    return render_template("rv/detalhe.html", dados=dados, id_check=id_check)

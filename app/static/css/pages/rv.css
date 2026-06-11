@@ -598,6 +598,114 @@ body[data-theme="light"] .sidebar-logout:hover {
     font-size: 12px;
 }
 
+/* ========================= */
+/* DETALHE PAGE */
+/* ========================= */
+.detalhe-container {
+    padding: 20px;
+    background: rgba(20, 30, 50, 0.6);
+    border-radius: 14px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+}
+
+.detalhe-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border);
+}
+
+.detalhe-header h3 {
+    margin: 0;
+    color: var(--text-main);
+    font-size: 1.3em;
+}
+
+.detalhe-table {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.5);
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.detalhe-table th {
+    background: rgba(15, 23, 42, 0.8);
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border);
+}
+
+.detalhe-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+}
+
+.detalhe-table tr:hover {
+    background: rgba(124, 58, 237, 0.1);
+}
+
+.detalhe-table tr:last-child td {
+    border-bottom: none;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+/* Light mode */
+body[data-theme="light"] .detalhe-container {
+    background: #f7f8fa;
+    border-color: #e5e7eb;
+}
+
+body[data-theme="light"] .detalhe-header {
+    border-bottom-color: #e5e7eb;
+    color: #01040c;
+}
+
+body[data-theme="light"] .detalhe-header h3 {
+    color: #01040c;
+}
+
+body[data-theme="light"] .detalhe-table {
+    background: white;
+    border-color: #e5e7eb;
+}
+
+body[data-theme="light"] .detalhe-table th {
+    background: #f3f4f6;
+    color: #01040c;
+    border-color: #e5e7eb;
+}
+
+body[data-theme="light"] .detalhe-table td {
+    border-color: #e5e7eb;
+    color: #01040c;
+}
+
+body[data-theme="light"] .detalhe-table tr:hover {
+    background: #f9fafb;
+}
+
+body[data-theme="light"] .empty-message {
+    background: white;
+    border-color: #e5e7eb;
+    color: #6b7280;
+}
+
 .context-pill.active {
     border: 1px solid #00ff9f;
 }

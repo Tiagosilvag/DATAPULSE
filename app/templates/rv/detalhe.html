@@ -3,113 +3,6 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/rv.css') }}?v=99">
-<style>
-    .detalhe-container {
-        padding: 20px;
-        background: #f5f5f5;
-        border-radius: 8px;
-        margin-bottom: 20px;
-    }
-
-    .detalhe-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        padding-bottom: 15px;
-        border-bottom: 2px solid #ddd;
-    }
-
-    .detalhe-header h3 {
-        margin: 0;
-        color: #333;
-        font-size: 1.3em;
-    }
-
-    .btn-voltar {
-        padding: 8px 16px;
-        background: #6c63ff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-        transition: background 0.3s;
-    }
-
-    .btn-voltar:hover {
-        background: #5a52cc;
-    }
-
-    .detalhe-table {
-        width: 100%;
-        background: white;
-        border-collapse: collapse;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .detalhe-table th {
-        background: #f0f0f0;
-        padding: 12px;
-        text-align: left;
-        font-weight: 600;
-        color: #333;
-        border-bottom: 2px solid #ddd;
-    }
-
-    .detalhe-table td {
-        padding: 12px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .detalhe-table tr:hover {
-        background: #f9f9f9;
-    }
-
-    .detalhe-table tr:last-child td {
-        border-bottom: none;
-    }
-
-    .status-badge {
-        display: inline-block;
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.85em;
-        font-weight: 600;
-    }
-
-    .status-ok {
-        background: #d4edda;
-        color: #155724;
-    }
-
-    .status-alerta {
-        background: #fff3cd;
-        color: #856404;
-    }
-
-    .status-erro {
-        background: #f8d7da;
-        color: #721c24;
-    }
-
-    .empty-message {
-        text-align: center;
-        padding: 40px;
-        color: #999;
-        background: white;
-        border-radius: 8px;
-    }
-
-    .empty-message i {
-        font-size: 3em;
-        margin-bottom: 10px;
-        display: block;
-    }
-</style>
 {% endblock %}
 
 {% block rv_content %}
@@ -128,7 +21,7 @@
         <!-- HEADER COM BOTÃO VOLTAR -->
         <div class="detalhe-header">
             <h3>Execuções do Check #{{ id_check }}</h3>
-            <a href="{{ url_for('rv_bp.checklist') }}" class="btn-voltar">← Voltar</a>
+            <a href="{{ url_for('rv_bp.checklist') }}" class="btn-primary">← Voltar</a>
         </div>
 
         <!-- TABELA DE DADOS -->
@@ -150,11 +43,11 @@
                             <td>
                                 {% set status = row[1] %}
                                 {% if status == 'OK' %}
-                                    <span class="status-badge status-ok">✓ OK</span>
+                                    <span class="status-badge badge-ok">✓ OK</span>
                                 {% elif status == 'ALERTA' %}
-                                    <span class="status-badge status-alerta">⚠ Alerta</span>
+                                    <span class="status-badge badge-alerta">⚠ Alerta</span>
                                 {% elif status == 'ERRO' %}
-                                    <span class="status-badge status-erro">✕ Erro</span>
+                                    <span class="status-badge badge-erro">✕ Erro</span>
                                 {% else %}
                                     <span class="status-badge">{{ status }}</span>
                                 {% endif %}
@@ -169,7 +62,7 @@
         {% else %}
             <div class="empty-message">
                 <p><strong>Nenhuma execução encontrada para este check</strong></p>
-                <a href="{{ url_for('rv_bp.checklist') }}" class="btn-voltar">Voltar para Checklist</a>
+                <a href="{{ url_for('rv_bp.checklist') }}" class="btn-primary">Voltar para Checklist</a>
             </div>
         {% endif %}
 
