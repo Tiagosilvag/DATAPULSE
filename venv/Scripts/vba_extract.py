@@ -1,4 +1,4 @@
-#!C:\Users\A0170310\Documents\DATAPULSE\venv\Scripts\python.exe
+#!C:\Users\Admin\OneDrive\Documentos\DATAPULSE\venv\Scripts\python.exe
 
 ##############################################################################
 #
