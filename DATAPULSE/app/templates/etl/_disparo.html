@@ -1,0 +1,56 @@
+<div class="card">
+
+    <div class="card-body">
+
+        <!-- ✅ APENAS UM FORM -->
+        <form id="formDisparo" class="form-inline">
+
+            <!-- BASE -->
+            <div class="form-group">
+                <label>
+                    <i data-lucide="database"></i> Bases Destino
+                </label>
+
+                <div id="bases-list" class="checkbox-list">
+
+                    {% for b in bases %}
+                    <label class="check-item">
+                        <input type="checkbox" value="{{ b.nome }}">
+                        <span>{{ b.nome }}</span>
+                    </label>
+                    {% endfor %}
+
+                </div>
+
+                <div class="multi-actions">
+                    <button type="button" id="btn-all">Marcar todas</button>
+                    <button type="button" id="btn-clear">Limpar</button>
+                </div>
+            </div>
+
+            <!-- ANO MES -->
+            <div class="form-group">
+                <label>Ano/Mês</label>
+                <input type="month" id="anomes">
+            </div>
+
+            <!-- BOTÃO -->
+
+            <div class="actions-final">
+
+                <button type="button" class="btn cancel" id="btn-cancelar">
+                    X Cancelar
+                </button>
+
+                <button type="submit" class="btn-primary">
+                    ▶ Disparar
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>

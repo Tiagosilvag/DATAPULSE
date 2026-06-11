@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-page">
+
+    <h2>Módulo RV</h2>
+
+    <p style="color: var(--text-muted);">
+        Acesse as funcionalidades de provisão RV.
+    </p>
+
+    <div class="admin-actions" style="margin-top: 20px;">
+        <a href="{{ url_for('home_bp.amostragem_provisao') }}" class="btn-primary">
+            Amostragem da Provisão
+        </a>
+
+        <a href="{{ url_for('home_bp.dashboard_provisao') }}" class="btn-secondary">
+            Dashboard da Provisão
+        </a>
+    </div>
+
+</div>
+{% endblock %}

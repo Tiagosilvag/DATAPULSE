@@ -1,0 +1,174 @@
+{% extends "admin/base_admin.html" %}
+
+{% block header %}👤 Usuários{% endblock %}
+
+{% block content %}
+
+<div class="admin-toolbar">
+
+    <form method="GET" class="search-box">
+
+        <input type="text" name="q" placeholder="Buscar usuário..." value="{{ request.args.get('q','') }}"
+            id="inputBuscaUsuario">
+        <button type="submit">
+            Buscar 🔍
+        </button>
+
+    </form>
+
+
+    <a href="{{ url_for('admin_usuarios_bp.novo') }}" class="btn-primary">
+        + Novo Usuário
+    </a>
+
+</div>
+
+
+<table class="admin-table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Login</th>
+            <th>Perfis</th>
+            <th>Módulos</th>
+            <th>Status</th>
+            <th style="text-align:right;">Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for u in usuarios %}
+        <tr>
+
+            <!-- NOME -->
+            <td>
+                <div class="user-name">
+                    {{ u.nome }}
+                </div>
+            </td>
+
+            <!-- LOGIN -->
+            <td class="user-login">
+                {{ u.login }}
+            </td>
+
+            <!-- PERFIS -->
+            <td>
+                <div class="perfil-badges">
+                    {% for p in u.perfis %}
+                    <span class="badge-perfil">{{ p }}</span>
+                    {% endfor %}
+                </div>
+            </td>
+
+            <!-- MÓDULOS -->
+            <td>
+                <div class="perfil-badges">
+                    {% for m in u.modulos %}
+                    <span class="badge-modulo">{{ m }}</span>
+                    {% endfor %}
+                </div>
+            </td>
+
+            <!-- STATUS -->
+            <td>
+                {% if u.ativo == 'S' %}
+                <span class="status-badge badge-ok">Ativo</span>
+                {% else %}
+                <span class="status-badge badge-erro">Inativo</span>
+                {% endif %}
+            </td>
+
+            <!-- AÇÕES -->
+            <td style="text-align:right;">
+                <button class="btn-secondary" data-id="{{ u.id_usuario }}" data-login="{{ u.login }}"
+                    data-nome="{{ u.nome }}" data-status="{{ u.fl_ativo }}"
+                    data-perfis='{{ (u.perfis_ids or []) | tojson }}' onclick="editarUsuarioBtn(this)">
+                    Editar ✏️
+                </button>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<!-- ========================= -->
+<!-- MODAL USUÁRIO -->
+<!-- ========================= -->
+<div id="modalUsuario" class="modal-overlay">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+            <h3>✏️ Editar Usuário</h3>
+            <span onclick="fecharModal()" class="modal-close">✖</span>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="input-group">
+                <label>Login</label>
+                <input type="text" id="usuarioLogin">
+            </div>
+
+            <div class="input-group">
+                <label>Nome</label>
+                <input type="text" id="usuarioNome">
+            </div>
+
+            <!-- PERFIS -->
+            <div class="input-group">
+                <label>Perfis</label>
+                <div id="usuarioPerfis">
+                    {% for p in perfis %}
+                    <label>
+                        <input type="checkbox" value="{{ p.id_perfil }}">
+                        {{ p.ds_perfil }}
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            <!-- MÓDULOS -->
+            <div class="input-group">
+                <label>Módulos</label>
+
+                <div id="usuarioModulos">
+
+                    {% for m in modulos %}
+                    <label>
+                        <input type="checkbox" value="{{ m.id_modulo }}">
+                        {{ m.ds_codigo_modulo }}
+                    </label>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+
+            <!-- STATUS -->
+            <div class="input-group">
+                <label>Status</label>
+                <select id="usuarioStatus">
+                    <option value="A">Ativo</option>
+                    <option value="I">Inativo</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn-primary" onclick="salvarUsuario()">Salvar</button>
+            <button class="btn-secondary" onclick="fecharModal()">Cancelar</button>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/pages/form.js') }}"></script>
+{% endblock %}

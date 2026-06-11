@@ -1,0 +1,91 @@
+{% extends "admin/base_admin.html" %}
+
+{% block header %}🏢 Estruturas{% endblock %}
+
+{% block content %}
+
+<div class="admin-container">
+
+    <div class="admin-toolbar">
+        <form method="GET" class="search-box">
+
+            <input type="text" id="inputBuscaEstrutura" name="q" placeholder="Buscar estrutura..."
+                value="{{ request.args.get('q','') }}" data-url="{{ url_for('admin_estruturas_bp.listar') }}">
+
+            <button type="submit">
+                Buscar 🔍
+            </button>
+
+        </form>
+
+        <button onclick="novoEstrutura()" class="btn-primary">
+            + Nova Estrutura
+        </button>
+
+    </div>
+
+    <table class="admin-table">
+
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Descrição</th>
+                <th style="text-align:right;">Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for e in estruturas %}
+            <td>{{ e.id_estrutura }}</td>
+
+            <td>{{ e.nm_estrutura }}</td>
+
+            <td style="text-align:right;">
+                <button class="btn-secondary btn-table" data-codigo="{{ e.id_estrutura }}"
+                    data-descricao="{{ e.nm_estrutura }}" onclick="editarEstruturaBtn(this)">
+                    ✏️
+                </button>
+            </td>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- MODAL -->
+<div id="modalEstrutura" class="modal-overlay">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+            <h3>🏢 Estrutura</h3>
+            <span onclick="fecharModal()" class="modal-close">✖</span>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="input-group">
+                <label>Código</label>
+                <input type="text" id="estruturaCodigo">
+            </div>
+
+            <div class="input-group">
+                <label>Descrição</label>
+                <input type="text" id="estruturaDescricao">
+            </div>
+
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn-primary" onclick="salvarEstrutura()">Salvar</button>
+            <button class="btn-secondary" onclick="fecharModal()">Cancelar</button>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- JS -->
+<script src="{{ url_for('static', filename='js/pages/form.js') }}"></script>
+{% endblock %}

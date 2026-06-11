@@ -1,0 +1,107 @@
+{% extends "admin/base_admin.html" %}
+
+{% block header %}📋 Perfis{% endblock %}
+
+{% block content %}
+
+<div class="admin-container">
+
+    <!-- TOOLBAR -->
+    <div class="admin-toolbar">
+        <form method="GET" class="search-box">
+
+            <input type="text" id="inputBuscaPerfil" name="q" placeholder="Buscar perfil..."
+                value="{{ request.args.get('q','') }}">
+
+            <button type="submit">
+                Buscar 🔍
+            </button>
+        </form>
+
+        <button onclick="novoPerfil()" class="btn-primary">
+            + Novo Perfil
+        </button>
+
+    </div>
+
+    <!-- TABELA -->
+    <table class="admin-table">
+
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Descrição</th>
+                <th style="text-align:right;">Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for p in perfis %}
+            <tr>
+
+                <td>{{ p.ds_perfil }}</td>
+
+                <td>{{ p.ds_descricao }}</td>
+
+                <td style="text-align:right;">
+                    <button class="btn-secondary btn-table" title="Editar"
+                        onclick="editarPerfil('{{ p.id_perfil }}','{{ p.ds_perfil }}','{{ p.ds_descricao }}')">
+                        ✏️
+                    </button>
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- ========================= -->
+<!-- MODAL PERFIL -->
+<!-- ========================= -->
+<div id="modalPerfil" class="modal-overlay">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+            <h3 id="modalPerfilTitulo">📋 Perfil</h3>
+            <span onclick="fecharModal()" class="modal-close">✖</span>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="input-group">
+                <label>Código</label>
+                <input type="text" id="perfilCodigo">
+            </div>
+
+            <div class="input-group">
+                <label>Descrição</label>
+                <input type="text" id="perfilDescricao">
+            </div>
+
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn-primary" onclick="salvarPerfil()">
+                Salvar
+            </button>
+
+            <button class="btn-secondary" onclick="fecharModal()">
+                Cancelar
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- JS -->
+<script src="{{ url_for('static', filename='js/pages/form.js') }}"></script>
+
+
+{% endblock %}

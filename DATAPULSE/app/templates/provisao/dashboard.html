@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard-dark.css') }}">
+
+<div class="dashboard-dark">
+    <div class="breadcrumb">
+        <a href="{{ url_for('home_bp.dashboard') }}">Dashboard</a>
+        <span>›</span>
+        <a href="{{ url_for('home_bp.modulo_rv') }}">Validação RV</a>
+        <span>›</span>
+        <span class="current">{{ title }}</span>
+    </div>
+
+    <h2 style="color:#fff; margin-bottom:18px;">
+        Dashboard Provisão RV — {{ ano_mes or '' }}
+    </h2>
+
+    <!-- FILTRO -->
+    <form method="get" class="dashboard-filter">
+        <div class="filter-group">
+            <label>Ano/Mês (YYYYMM)</label>
+            <input type="text" name="ano_mes" value="{{ ano_mes or '' }}">
+        </div>
+
+        <button type="submit" class="btn-primary btn-dashboard">
+            Buscar
+        </button>
+    </form>
+
+
+    {% if resumo %}
+
+    <!-- KPIs -->
+    <div class="dashboard-kpis">
+        <div class="kpi-card">
+            <div class="kpi-title">RV</div>
+            <div class="kpi-value">{{ "%.2f"|format(resumo.total_rv) }}</div>
+        </div>
+
+        <div class="kpi-card secondary">
+            <div class="kpi-title">DSR</div>
+            <div class="kpi-value">{{ "%.2f"|format(resumo.total_dsr) }}</div>
+        </div>
+
+        <div class="kpi-card dark">
+            <div class="kpi-title">Total RV</div>
+            <div class="kpi-value">{{ "%.2f"|format(resumo.total_provisao) }}</div>
+        </div>
+    </div>
+
+    <!-- GRÁFICOS -->
+    <div class="dashboard-charts">
+        <div class="chart-card">
+            <h3 style="color:#fff; margin-bottom:10px;">Provisão por Segmento</h3>
+            <div id="chart-segmento"></div>
+        </div>
+
+        <div class="chart-card">
+            <h3 style="color:#fff; margin-bottom:10px;">Distribuição %</h3>
+            <div id="chart-pizza"></div>
+        </div>
+    </div>
+
+    <!-- DADOS PARA JS -->
+    <script id="dados-dashboard" type="application/json">
+        {{ resumo.por_segmento | tojson }}
+    </script>
+
+    {% endif %}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+{% if resumo %}
+<script>
+    const raw = document.getElementById("dados-dashboard");
+    const porSegmento = JSON.parse(raw.textContent);
+
+    const segmentos = Object.keys(porSegmento);
+    const valores = segmentos.map(s => porSegmento[s].total);
+
+    if (segmentos.length > 0) {
+        new ApexCharts(document.querySelector("#chart-segmento"), {
+            chart: { type: 'bar', height: 300, foreColor: '#ffffff' },
+            series: [{ name: 'Total RV', data: valores }],
+            xaxis: { categories: segmentos },
+            theme: { mode: 'dark' }
+        }).render();
+
+        new ApexCharts(document.querySelector("#chart-pizza"), {
+            chart: { type: 'donut', height: 300 },
+            series: valores,
+            labels: segmentos,
+            theme: { mode: 'dark' }
+        }).render();
+    }
+</script>
+{% endif %}
+
+{% endblock %}

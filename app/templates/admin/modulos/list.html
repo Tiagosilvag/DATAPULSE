@@ -1,0 +1,131 @@
+{% extends "admin/base_admin.html" %}
+
+{% block header %}📦 Módulos{% endblock %}
+
+{% block content %}
+
+<div class="admin-container">
+
+    <!-- HEADER -->
+    <div class="admin-header">
+        <h1 class="header-title">
+            📦 Módulos
+        </h1>
+    </div>
+
+    <!-- CARD -->
+    <div class="admin-card">
+
+        <!-- TOOLBAR -->
+        <div class="admin-toolbar">
+
+            <div></div>
+
+            <button class="btn-primary" onclick="abrirModal('modalModulo')">
+                + Novo Módulo
+            </button>
+
+        </div>
+
+        <!-- TABELA -->
+        <table class="admin-table">
+
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descrição</th>
+                    <th>Status</th>
+                    <th style="text-align:right;">Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for m in modulos %}
+                <tr>
+
+                    <td>{{ m.ds_codigo_modulo }}</td>
+
+                    <td>{{ m.ds_descricao }}</td>
+
+                    <td>
+                        <span class="status-pill {% if m.fl_ativo == 'S' %}ativo{% else %}inativo{% endif %}">
+                            {% if m.fl_ativo == 'S' %}Ativo{% else %}Inativo{% endif %}
+                        </span>
+                    </td>
+
+                    <td style="text-align:right;">
+
+                        <button class="btn-secondary btn-table" title="Editar"
+                            onclick="editarModulo('{{ m.id_modulo }}', '{{ m.ds_codigo_modulo }}', '{{ m.ds_descricao }}')">
+                            ✏️
+                        </button>
+
+                        <button class="btn-secondary btn-table" title="Excluir"
+                            onclick="excluirModulo('{{ m.id_modulo }}')">
+                            🗑
+                        </button>
+
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- ========================= -->
+<!-- MODAL NOVO / EDITAR -->
+<!-- ========================= -->
+<div id="modalModulo" class="modal-overlay">
+
+    <div class="modal-box">
+
+        <!-- HEADER -->
+        <div class="modal-header">
+            <h3 id="modalTitulo">📦 Novo Módulo</h3>
+            <span onclick="fecharModal()" class="modal-close">✖</span>
+        </div>
+
+        <!-- BODY -->
+        <div class="modal-body">
+
+            <div class="input-group">
+                <label>Código</label>
+                <input type="text" id="novoModuloNome" placeholder="Ex: FINANCEIRO">
+            </div>
+
+            <div class="input-group">
+                <label>Descrição</label>
+                <input type="text" id="novoModuloDesc" placeholder="Descrição do módulo">
+            </div>
+
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="modal-actions">
+
+            <button class="btn-primary" onclick="salvarModulo()">
+                Salvar
+            </button>
+
+            <button class="btn-secondary" onclick="fecharModal()">
+                Cancelar
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- JS -->
+
+<script src="{{ url_for('static', filename='js/pages/form.js') }}"></script>
+
+{% endblock %}

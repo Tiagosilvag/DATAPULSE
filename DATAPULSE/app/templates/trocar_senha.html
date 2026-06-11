@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="admin-page">
+
+    <h2>Troca de senha obrigatória</h2>
+
+    <p class="text-muted">
+        Esta é sua primeira entrada no sistema ou sua senha foi resetada por um administrador.
+        Defina uma nova senha para continuar.
+    </p>
+
+    <form method="POST" class="admin-form">
+
+        <div class="form-group">
+            <label>Nova senha</label>
+            <input type="password" name="nova_senha" required>
+        </div>
+
+        <div class="form-group">
+            <label>Confirmar nova senha</label>
+            <input type="password" name="confirmar_senha" required>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">
+                Salvar nova senha
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

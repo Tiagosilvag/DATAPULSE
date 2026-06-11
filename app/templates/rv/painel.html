@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="admin-container">
+
+    <!-- HEADER -->
+    <div class="page-header">
+        <h2>CheckList RV</h2>
+        <p class="page-subtitle">
+            Selecione as validações que deseja executar
+        </p>
+    </div>
+
+    <!-- DEBUG (REMOVE DEPOIS) -->
+    <p style="color:white">TOTAL: {{ checks|length }}</p>
+
+    <!-- FORM -->
+    <form method="POST" action="{{ url_for('home_bp.executar_rv') }}">
+
+        <!-- AÇÕES -->
+        <div class="toolbar">
+
+            <button type="button" onclick="marcarTodos()" class="btn-secondary">
+                Marcar todos
+            </button>
+
+            <button type="button" onclick="limparTudo()" class="btn-secondary">
+                Limpar
+            </button>
+
+            <button type="submit" class="btn-primary">
+                🚀 Validar selecionadas
+            </button>
+
+        </div>
+
+        <!-- CARDS -->
+        <div class="cards-grid">
+
+            {% for c in checks %}
+
+            <label class="check-card">
+
+                <input type="checkbox" name="checks" value="{{ c.id_check }}">
+
+                <div class="card-content">
+
+                    <div class="card-title">
+                        {{ c.nm_view }}
+                    </div>
+
+                    <div class="card-desc">
+                        {{ c.finalidade_snap }}
+                    </div>
+
+                    <div class="card-status">
+                        Pendente
+                    </div>
+
+                </div>
+
+            </label>
+
+            {% endfor %}
+
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+    function marcarTodos() {
+        document.querySelectorAll('input[name="checks"]').forEach(c => c.checked = true);
+    }
+
+    function limparTudo() {
+        document.querySelectorAll('input[name="checks"]').forEach(c => c.checked = false);
+    }
+</script>
+
+{% endblock %}

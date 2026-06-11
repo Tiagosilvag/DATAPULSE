@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% set hide_sidebar = True %}
+{% set hide_header = True %}
+
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/dashboard.css') }}?v=999">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-wrapper">
+
+    <div class="content">
+
+        <!-- ================= HEADER ================= -->
+        <div class="dp-header">
+
+            <!-- LEFT -->
+            <div class="dp-left">
+                <span class="logo">⚡ DATAPULSE</span>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="dp-right">
+
+                <!-- Ícones -->
+                <div class="header-icon">🔍</div>
+
+                <!-- ✅ Toggle Dark/Light (igual sistema) -->
+                <label class="theme-switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+
+                <!-- ✅ Logout -->
+                <a href="{{ url_for('auth_bp.logout') }}" class="logout-btn">
+                    🚪 Sair
+                </a>
+
+                <!-- USER -->
+                <div class="user-box">
+                    <div class="avatar"></div>
+                    <div class="user-info">
+                        <span class="username">{{ current_user.login }}</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <!-- ================= TITLE ================= -->
+    <h2 class="dashboard-title">
+        Módulos disponíveis
+    </h2>
+
+    <p class="dashboard-subtitle">
+        Selecione onde deseja navegar
+    </p>
+
+    {% set acessos = modulos | map(attribute='codigo') | list %}
+
+    <!-- ================= GRID ================= -->
+    <div class="modules-grid">
+
+        <!-- RV -->
+        <a href="{{ url_for('rv_bp.index') if 'RV' in acessos else '#' }}"
+            class="module-card purple {% if 'RV' not in acessos %}disabled{% endif %}">
+
+            <div class="module-icon">📊</div>
+            <h3>Validação RV</h3>
+            <p>Execução das validações por regra</p>
+
+            {% if 'RV' in acessos %}
+            <span class="btn-access">Acessar →</span>
+            {% else %}
+            <span class="btn-access disabled-text">Sem acesso</span>
+            {% endif %}
+        </a>
+
+        <!-- DQ -->
+        <a href="{{ '/dq' if 'DQ' in acessos else '#' }}"
+            class="module-card blue {% if 'DQ' not in acessos %}disabled{% endif %}">
+
+            <div class="module-icon">🧪</div>
+            <h3>Data Quality</h3>
+            <p>Monitoramento da qualidade dos dados</p>
+
+            {% if 'DQ' in acessos %}
+            <span class="btn-access">Acessar →</span>
+            {% else %}
+            <span class="btn-access disabled-text">Sem acesso</span>
+            {% endif %}
+        </a>
+
+        <!-- ADMIN -->
+        <a href="{{ '/admin/usuarios' if 'ADMIN' in (acessos | join(' ')) else '#' }}"
+            class="module-card cyan {% if 'ADMIN' not in (acessos | join(' ')) %}disabled{% endif %}">
+
+            <div class="module-icon">⚙️</div>
+            <h3>Administração</h3>
+            <p>Gestão de usuários e estruturas</p>
+
+            {% if 'ADMIN' in (acessos | join(' ')) %}
+            <span class="btn-access">Acessar →</span>
+            {% else %}
+            <span class="btn-access disabled-text">Sem acesso</span>
+            {% endif %}
+
+        </a>
+
+
+        <!-- MONITOR -->
+        <a href="#" class="module-card green disabled">
+
+            <div class="module-icon">📡</div>
+            <h3>Monitoramento</h3>
+            <p>Acompanhe execução dos processos ETL</p>
+
+            <span class="btn-access disabled-text">Em breve</span>
+        </a>
+
+        <!-- ETL -->
+        <a href="{{ url_for('etl_bp.monitor') if 'ETL' in (acessos | join(' ')) else '#' }}"
+            class="module-card orange {% if 'ETL' not in (acessos | join(' ')) %}disabled{% endif %}">
+
+            <div class="module-icon">🛠️</div>
+
+            <h3>ETL</h3>
+
+            <p>Controle de pipelines</p>
+
+            {% if 'ETL' in (acessos | join(' ')) %}
+            <span class="btn-access">Acessar →</span>
+            {% else %}
+            <span class="btn-access disabled-text">Sem acesso</span>
+            {% endif %}
+
+        </a>
+
+        <!-- AUDITORIA -->
+        <a href="#" class="module-card pink disabled">
+
+            <div class="module-icon">📄</div>
+            <h3>Auditoria</h3>
+            <p>Logs e trilhas do sistema</p>
+
+            <span class="btn-access disabled-text">Em breve</span>
+        </a>
+
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}

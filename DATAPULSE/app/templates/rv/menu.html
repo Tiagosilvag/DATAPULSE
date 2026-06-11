@@ -1,0 +1,61 @@
+{% extends "rv/base_rv.html" %}
+
+{% block rv_content %}
+
+<h2 class="dashboard-title">Dashboard</h2>
+
+<div class="modules-grid">
+
+    <div class="module-card purple">
+        <h3>Execuções Hoje</h3>
+        <p>24</p>
+    </div>
+
+    <div class="module-card green">
+        <h3>Validações OK</h3>
+        <p>1.482</p>
+    </div>
+
+    <div class="module-card orange">
+        <h3>Pendências</h3>
+        <p>32</p>
+    </div>
+
+    <div class="module-card red">
+        <h3>Falhas</h3>
+        <p>7</p>
+    </div>
+
+</div>
+
+<br>
+
+<div class="module-card">
+    <h3>Execuções nas últimas 24h</h3>
+    <p>(gráfico será aqui depois)</p>
+</div>
+
+<br>
+
+<div class="module-card">
+    <h3>Últimas Execuções</h3>
+
+    <table>
+        <tr>
+            <th>Execução</th>
+            <th>Status</th>
+            <th>Validações</th>
+        </tr>
+
+        <tr>
+            <td>#20240524-01</td>
+            <td>✅ Sucesso</td>
+            <td>120</td>
+        </tr>
+
+    </table>
+
+</div>
+
+{% endblock %}
+``

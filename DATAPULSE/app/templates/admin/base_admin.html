@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Administração{% endblock %}</title>
+
+    <!-- BASE CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/buttons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/admin.css') }}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %} dark">
+
+    <div class="admin-layout">
+
+        <!-- ================= SIDEBAR ================= -->
+        <aside class="admin-sidebar">
+
+            <div class="admin-top">
+
+                <nav class="admin-menu">
+
+                    {% block sidebar_menu %}
+
+                    <a href="{{ url_for('admin_bp.dashboard') }}"
+                        class="admin-item {% if request.endpoint == 'admin_bp.dashboard' %}active{% endif %}">
+
+                        <div class="menu-icon dashboard">
+                            <i data-lucide="home"></i>
+                        </div>
+
+                        <span>Dashboard</span>
+                    </a>
+
+                    <a href="{{ url_for('admin_usuarios_bp.listar') }}"
+                        class="admin-item {% if request.endpoint and 'admin_usuarios' in request.endpoint %}active{% endif %}">
+
+                        <div class="menu-icon users">
+                            <i data-lucide="users"></i>
+                        </div>
+
+                        <span>Usuários</span>
+                    </a>
+
+                    <a href="{{ url_for('admin_perfis_bp.listar') }}"
+                        class="admin-item {% if request.endpoint and request.endpoint.startswith('admin_perfis_bp') %}active{% endif %}">
+
+                        <div class="menu-icon perfis">
+                            <i data-lucide="key"></i>
+                        </div>
+
+                        <span>Perfis</span>
+                    </a>
+
+                    <a href="{{ url_for('admin_modulo_bp.listar_tela') }}"
+                        class="admin-item {% if request.endpoint and request.endpoint.startswith('admin_modulo_bp') %}active{% endif %}">
+
+                        <div class="menu-icon modulos">
+                            <i data-lucide="box"></i>
+                        </div>
+
+                        <span>Módulos</span>
+                    </a>
+
+                    <a href="{{ url_for('admin_segmentos_bp.listar') }}"
+                        class="admin-item {% if request.endpoint == 'admin_segmentos_bp.listar' %}active{% endif %}">
+
+                        <div class="menu-icon segmentos">
+                            <i data-lucide="bar-chart"></i>
+                        </div>
+
+                        <span>Segmentos</span>
+                    </a>
+
+                    <a href="{{ url_for('admin_estruturas_bp.listar') }}"
+                        class="admin-item {% if request.endpoint == 'admin_estruturas_bp.listar' %}active{% endif %}">
+
+                        <div class="menu-icon estruturas">
+                            <i data-lucide="building"></i>
+                        </div>
+
+                        <span>Estruturas</span>
+                    </a>
+
+                    {% endblock %}
+
+                </nav>
+
+            </div>
+
+            <div class="admin-sidebar-footer">
+
+                <!-- USER + TOGGLE -->
+                <div class="sidebar-user-block">
+
+                    <div class="sidebar-user">
+                        <span class="admin-user-badge">
+                            {{ session.get('login', 'ADMIN') }}
+                        </span>
+                    </div>
+
+                    <div class="sidebar-theme">
+                        <label class="theme-switch">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                </div>
+
+                <!-- LOGOUT -->
+                <a href="{{ url_for('auth_bp.logout') }}" class="admin-logout">
+                    <i data-lucide="log-out"></i>
+                    Sair
+                </a>
+
+            </div>
+
+        </aside>
+
+        <!-- ================= MAIN ================= -->
+        <div class="admin-main">
+
+            <div class="admin-content">
+                {% block content %}{% endblock %}
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= JS ================= -->
+
+    <!-- ✅ LUCIDE CDN (ESTÁVEL) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- ✅ ADMIN -->
+    <script src="{{ url_for('static', filename='js/pages/admin.js') }}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+    </script>
+
+    <!-- Toast -->
+    <div id="toastContainer" class="toast-container"></div>
+
+</body>
+
+</html>

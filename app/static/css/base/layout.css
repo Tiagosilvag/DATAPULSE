@@ -1,0 +1,113 @@
+/* ========================= */
+/* THEME VARIABLES3b8;/* THEME VARIABLES */
+
+/* ========================= */
+/* BASE */
+/* ========================= */
+
+/* ========================= */
+/* THEME VARIABLES GLOBAL */
+/* ========================= */
+
+:root{
+    --bg-main: #020617;
+    --bg-card: rgba(15,23,42,0.75);
+    --text-main: #ffffff;
+    --text-muted: #94a3b8;
+}
+
+/* DARK */
+body[data-theme="dark"]{
+    --bg-main:#020617;
+    --bg-card:rgba(15,23,42,0.75);
+    --text-main:#ffffff;
+    --text-muted:#94a3b8;
+}
+
+/* LIGHT */
+/* LIGHT */
+body[data-theme="light"]{
+    --bg-main:#f4f5f6;
+    --bg-card:#ffffff;
+    --input-bg:#ffffff;
+    --text-main:#111827;
+    --text-muted:#6b7280;
+}
+
+body{
+    background: var(--bg-main);
+    color: var(--text-main);
+}
+
+
+/* ========================= */
+/* LAYOUT */
+/* ========================= */
+.app-layout{
+    display:flex;
+}
+
+/* ========================= */
+/* SIDEBAR */
+/* ========================= */
+.sidebar{
+    width:260px;
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
+    background: linear-gradient(180deg,#f4f5f6 0%,#cdd0d6 100%);
+    border-right:1px solid rgba(0,0,0,0.05);
+}
+
+/* ========================= */
+/* MAIN CONTENT */
+/* ========================= */
+.main-content{
+    flex:1;
+    padding:0;
+    background:transparent;
+}
+
+/* ========================= */
+/* HEADER (SUPORTE GLOBAL) */
+/* ========================= */
+.app-header{
+    background: var(--bg-card);
+}
+
+/* ========================= */
+/* CARDS (SUPORTE GLOBAL) */
+/* ========================= */
+.module-card{
+    background: var(--bg-card);
+    color: var(--text-main);
+}
+
+/* TEXT */
+.module-card p{
+    color: var(--text-muted);
+}
+
+/* ICON */
+.module-icon{
+    background:rgba(255,255,255,0.1);
+}
+
+
+/* BUTTON */
+.btn-access{
+    background:rgba(255,255,255,0.1);
+}
+
+.main-wrapper.full .sidebar .main    {display:none;
+}
+
+
+
+/* ========================= */
+/* OVERRIDES */
+/* ========================= */
+
+

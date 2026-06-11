@@ -1,0 +1,31 @@
+{% extends "admin/base_admin.html" %}
+
+{% block header %}⚙️ Administração{% endblock %}
+
+{% block content %}
+
+<div class="admin-grid">
+
+
+    <a href="{{ url_for('admin_usuarios_bp.listar') }}" class="module-card">
+        👤 Usuários
+    </a>
+
+    <a href="#" class="admin-card">
+        🔑
+        <span>Perfis</span>
+    </a>
+
+    <a href="#" class="admin-card">
+        📦
+        <span>Módulos</span>
+    </a>
+
+    <a href="#" class="admin-card">
+        📊
+        <span>Segmentos</span>
+    </a>
+
+</div>
+
+{% endblock %}
